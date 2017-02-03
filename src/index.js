@@ -86,13 +86,28 @@ function getResult(codes) {
 
 // routes:
 
+// PLN markets:
 app.get('/ticker/btcpln', (res, req) => {
   getResult(getCodes('btc', 'pln')).then(res => handleSuccess(req, res));
+});
+
+app.get('/ticker/ethpln', (res, req) => {
+  getResult(getCodes('eth', 'pln')).then(res => handleSuccess(req, res));
 });
 
 app.get('/ticker/ltcpln', (res, req) => {
   getResult(getCodes('ltc', 'pln')).then(res => handleSuccess(req, res));
 });
+
+// EUR markets:
+app.get('/ticker/btceur', (res, req) => {
+  getResult(getCodes('btc', 'eur')).then(res => handleSuccess(req, res));
+});
+
+app.get('/ticker/etheur', (res, req) => {
+  getResult(getCodes('eth', 'eur')).then(res => handleSuccess(req, res));
+});
+
 
 app.get('/exchanges', (res, req) => {
   handleSuccess(req, Object.keys(exchanges));

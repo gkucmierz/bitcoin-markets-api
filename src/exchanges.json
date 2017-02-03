@@ -1,11 +1,11 @@
 {
   "properties": ["ask", "bid", "avg", "vwap", "vol", "last", "low", "high"],
-  "markets": ["pln", "btc", "ltc"],
+  "markets": ["pln", "eur", "btc", "ltc", "eth"],
   "exchanges": {
     "bitmarket.pl": {
       "urlTpl": "https://www.bitmarket.pl/json/%FROM%%TO%/ticker.json",
       "prop": ["ask", "bid", null, "vwap", "volume", "last", "low", "high"],
-      "markets": ["pln", "btc", "ltc"]
+      "markets": ["pln", "eur", "btc", "ltc"]
     },
     "bitmarket24.pl": {
       "urlTpl": "https://bitmarket24.pl/api/%FROM%_%TO%/status.json",
@@ -16,7 +16,7 @@
     "bitbay.pl": {
       "urlTpl": "https://market.bitbay.pl/API/Public/%FROM%%TO%/ticker.json",
       "prop": ["ask", "bid", "average", "vwap", "volume", "last", "min", "max"],
-      "markets": ["pln", "btc", "ltc"]
+      "markets": ["pln", "eur", "btc", "ltc", "eth"]
     },
     "bitmaszyna.pl": {
       "urlTpl": "https://bitmaszyna.pl/api/%FROM%%TO%/ticker.json",
