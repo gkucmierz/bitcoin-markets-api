@@ -1,5 +1,5 @@
 {
-  "properties": ["high", "low", "avg", "vwap", "vol", "last", "buy", "sell"],
+  "properties": ["ask", "bid", "avg", "vwap", "vol", "last", "low", "high"],
   "markets": {
     "bitmarket.pl": {
       "url": "https://www.bitmarket.pl/json/BTCPLN/ticker.json",
@@ -17,6 +17,19 @@
     "bitmaszyna.pl": {
       "url": "https://bitmaszyna.pl/api/BTCPLN/ticker.json",
       "prop": ["ask", "bid", "average", "vwap", "volume1", "last", "low", "high"]
+    },
+    "nevbit.com": {
+      "url": "https://nevbit.com/data/btcpln/ticker.json",
+      "prop": ["high", "low", "avg", "vwap", "vol", "last", "low", "high"]
+    },
+    "dgtmarket.com": {
+      "url": "https://dgtmarket.com/api/public/ticker24/BTCPLN/",
+      "prop": ["ask", "bid", null, null, "volume", "last", "low", "high"],
+      "flags": ["FLOAT_CONVERT"]
+    },
+    "bitelon.com": {
+      "url": "https://bitelon.com/api/pubticker/BTCPLN",
+      "prop": ["ask", "bid", "mid", null, "volume", "last_price", "low", "high"]
     }
   }
 }
