@@ -29,7 +29,8 @@
     },
     "bitelon.com": {
       "url": "https://bitelon.com/api/pubticker/BTCPLN",
-      "prop": ["ask", "bid", "mid", null, "volume", "last_price", "low", "high"]
+      "prop": ["ask", "bid", "mid", null, "volume", "last_price", "low", "high"],
+      "flags": ["FLOAT_CONVERT"]
     }
   }
 }
