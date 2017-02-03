@@ -59,6 +59,10 @@ app.get('/ticker/btcpln', (res, req) => {
   });
 });
 
+app.get('/exchanges', (res, req) => {  
+  handleSuccess(req, Object.keys(markets));
+});
+
 // catch all
 app.use((req, res) => {
   handleError(res, 'unknown method');
