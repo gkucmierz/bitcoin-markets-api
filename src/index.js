@@ -53,8 +53,8 @@ app.get('/ticker/btcpln', (res, req) => {
       http.get(exchanges[exchange].url, data => {
         let unified = unifyData(exchange, data);
         unified.timestamp = {
-          request: requestDate,
-          response: new Date()
+          request: +requestDate,
+          response: +new Date()
         };
         resolve(unified);
       });
