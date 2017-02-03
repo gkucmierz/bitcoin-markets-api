@@ -47,14 +47,22 @@ function unifyData(market, data) {
 
 app.get('/ticker/btcpln', (res, req) => {  
   let http = new Http();
+  let requestDate = new Date();
   let promises = Object.keys(markets).map(market => {
-    return new Promise((resolve, reject) => http.get(markets[market].url, resolve));
+    return new Promise((resolve, reject) => {
+      http.get(markets[market].url, data => {
+        let unified = unifyData(market, data);
+        unified.timestamp = {
+          request: requestDate,
+          response: new Date()
+        };
+        resolve(unified);
+      });
+    });
   });
   Promise.all(promises).then(arr => {
     let res = {};
-    Object.keys(markets).map((market, i) => {
-      res[market] = unifyData(market, arr[i]);
-    });
+    Object.keys(markets).map((market, i) => res[market] = arr[i]);
     handleSuccess(req, res);
   });
 });
