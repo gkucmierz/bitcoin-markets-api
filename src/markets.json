@@ -1,6 +1,6 @@
 {
   "properties": ["ask", "bid", "avg", "vwap", "vol", "last", "low", "high"],
-  "markets": {
+  "exchanges": {
     "bitmarket.pl": {
       "url": "https://www.bitmarket.pl/json/BTCPLN/ticker.json",
       "prop": ["ask", "bid", null, "vwap", "volume", "last", "low", "high"]

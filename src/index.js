@@ -1,7 +1,7 @@
 const express = require('express');
 const Http = require('node-rest-client').Client;
 
-const {markets, properties} = require('./markets.json');
+const {exchanges, properties} = require('./markets.json');
 
 const app = express();
 
@@ -32,14 +32,14 @@ function handleSuccess(res, data) {
   });
 }
 
-function unifyData(market, data) {
+function unifyData(exchange, data) {
   let ticker = {};
-  let toFloat = (markets[market].flags || []).indexOf('FLOAT_CONVERT') !== -1;
+  let toFloat = (exchanges[exchange].flags || []).indexOf('FLOAT_CONVERT') !== -1;
   properties.map((key, i) => {
-    let prop = markets[market].prop[i];
+    let prop = exchanges[exchange].prop[i];
     if (prop !== null) ticker[key] = toFloat ? parseFloat(data[prop]) : data[prop];
   });
-  let missing = properties.filter((prop, i) => markets[market].prop[i] === null);
+  let missing = properties.filter((prop, i) => exchanges[exchange].prop[i] === null);
   return {ticker, missing};
 }
 
@@ -48,10 +48,10 @@ function unifyData(market, data) {
 app.get('/ticker/btcpln', (res, req) => {  
   let http = new Http();
   let requestDate = new Date();
-  let promises = Object.keys(markets).map(market => {
+  let promises = Object.keys(exchanges).map(exchange => {
     return new Promise((resolve, reject) => {
-      http.get(markets[market].url, data => {
-        let unified = unifyData(market, data);
+      http.get(exchanges[exchange].url, data => {
+        let unified = unifyData(exchange, data);
         unified.timestamp = {
           request: requestDate,
           response: new Date()
@@ -62,13 +62,13 @@ app.get('/ticker/btcpln', (res, req) => {
   });
   Promise.all(promises).then(arr => {
     let res = {};
-    Object.keys(markets).map((market, i) => res[market] = arr[i]);
+    Object.keys(exchanges).map((exchange, i) => res[exchange] = arr[i]);
     handleSuccess(req, res);
   });
 });
 
 app.get('/exchanges', (res, req) => {  
-  handleSuccess(req, Object.keys(markets));
+  handleSuccess(req, Object.keys(exchanges));
 });
 
 // catch all
