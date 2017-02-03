@@ -1,0 +1,44 @@
+{
+  "properties": ["ask", "bid", "avg", "vwap", "vol", "last", "low", "high"],
+  "markets": ["pln", "btc", "ltc"],
+  "exchanges": {
+    "bitmarket.pl": {
+      "urlTpl": "https://www.bitmarket.pl/json/%FROM%%TO%/ticker.json",
+      "prop": ["ask", "bid", null, "vwap", "volume", "last", "low", "high"],
+      "markets": ["pln", "btc", "ltc"]
+    },
+    "bitmarket24.pl": {
+      "urlTpl": "https://bitmarket24.pl/api/%FROM%_%TO%/status.json",
+      "prop": ["ask", "bid", null, "vwap", "volume", "last", "low", "high"],
+      "flags": ["FLOAT_CONVERT"],
+      "markets": ["pln", "btc", "ltc"]
+    },
+    "bitbay.pl": {
+      "urlTpl": "https://market.bitbay.pl/API/Public/%FROM%%TO%/ticker.json",
+      "prop": ["ask", "bid", "average", "vwap", "volume", "last", "min", "max"],
+      "markets": ["pln", "btc", "ltc"]
+    },
+    "bitmaszyna.pl": {
+      "urlTpl": "https://bitmaszyna.pl/api/%FROM%%TO%/ticker.json",
+      "prop": ["ask", "bid", "average", "vwap", "volume1", "last", "low", "high"],
+      "markets": ["pln", "btc", "ltc"]
+    },
+    "nevbit.com": {
+      "urlTpl": "https://nevbit.com/data/%from%%to%/ticker.json",
+      "prop": ["high", "low", "avg", "vwap", "vol", "last", "low", "high"],
+      "markets": ["pln", "btc", "ltc"]
+    },
+    "dgtmarket.com": {
+      "urlTpl": "https://dgtmarket.com/api/public/ticker24/%FROM%%TO%/",
+      "prop": ["ask", "bid", null, null, "volume", "last", "low", "high"],
+      "flags": ["FLOAT_CONVERT"],
+      "markets": ["pln", "btc", "ltc"]
+    },
+    "bitelon.com": {
+      "urlTpl": "https://bitelon.com/api/pubticker/%FROM%%TO%",
+      "prop": ["ask", "bid", "mid", null, "volume", "last_price", "low", "high"],
+      "flags": ["FLOAT_CONVERT"],
+      "markets": ["pln", "btc"]
+    }
+  }
+}

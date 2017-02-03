@@ -1,7 +1,7 @@
 const express = require('express');
 const Http = require('node-rest-client').Client;
 
-const {exchanges, properties} = require('./markets.json');
+const {exchanges, properties} = require('./exchanges.json');
 
 const app = express();
 
@@ -43,14 +43,28 @@ function unifyData(exchange, data) {
   return {ticker, missing};
 }
 
-// routes:
+function getCodes(from, to) {
+  let [FROM, TO] = [from, to].map(str => str.toUpperCase());
+  return {from, to, FROM, TO};
+}
 
-app.get('/ticker/btcpln', (res, req) => {  
+function getUrl(urlTpl, codes) {
+  return Object.keys(codes).reduce((url, code) => {
+    return url.replace(`%${code}%`, codes[code]);
+  }, urlTpl);
+};
+
+function getResult(codes) {
   let http = new Http();
   let requestDate = new Date();
-  let promises = Object.keys(exchanges).map(exchange => {
+  let requestedExchanges = Object.keys(exchanges).filter(key => {
+    let markets = exchanges[key].markets;
+    return markets.indexOf(codes.from) !== -1 && markets.indexOf(codes.to) !== -1;
+  });
+
+  let promises = requestedExchanges.map(exchange => {
     return new Promise((resolve, reject) => {
-      http.get(exchanges[exchange].url, data => {
+      http.get(getUrl(exchanges[exchange].urlTpl, codes), data => {
         let unified = unifyData(exchange, data);
         unified.timestamp = {
           request: +requestDate,
@@ -60,12 +74,26 @@ app.get('/ticker/btcpln', (res, req) => {
       });
     });
   });
-  Promise.all(promises).then(arr => {
-    let res = {};
-    Object.keys(exchanges).map((exchange, i) => res[exchange] = arr[i]);
-    handleSuccess(req, res);
+  return new Promise((resolve, reject) => {
+    Promise.all(promises).then(arr => {
+      let res = {};
+      requestedExchanges.map((exchange, i) => res[exchange] = arr[i]);
+      resolve(res);
+    });
   });
+}
+
+
+// routes:
+
+app.get('/ticker/btcpln', (res, req) => {
+  getResult(getCodes('btc', 'pln')).then(res => handleSuccess(req, res));
 });
+
+app.get('/ticker/ltcpln', (res, req) => {
+  getResult(getCodes('ltc', 'pln')).then(res => handleSuccess(req, res));
+});
+
 
 app.get('/exchanges', (res, req) => {  
   handleSuccess(req, Object.keys(exchanges));

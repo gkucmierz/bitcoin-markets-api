@@ -1,10 +1,11 @@
 
 # public api
 
-ticker:
-https://bitcoin-markets-api.herokuapp.com/ticker/btcpln
+## ticker
+* BTC/PLN: https://bitcoin-markets-api.herokuapp.com/ticker/btcpln
+* LTC/PLN: https://bitcoin-markets-api.herokuapp.com/ticker/btcpln
 
-exchanges list:
+## exchanges list:
 https://bitcoin-markets-api.herokuapp.com/exchanges
 
 # development
