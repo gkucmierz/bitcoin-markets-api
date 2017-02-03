@@ -8,6 +8,9 @@
 ## exchanges list:
 https://bitcoin-markets-api.herokuapp.com/exchanges
 
+## exchanges with available markets:
+https://bitcoin-markets-api.herokuapp.com/markets
+
 # development
 
 ```sh

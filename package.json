@@ -1,6 +1,6 @@
 {
   "name": "bitcoin-markets-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Unified API for polish bitcoin exchanges",
   "main": "index.js",
   "scripts": {

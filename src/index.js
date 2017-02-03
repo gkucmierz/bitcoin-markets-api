@@ -94,9 +94,16 @@ app.get('/ticker/ltcpln', (res, req) => {
   getResult(getCodes('ltc', 'pln')).then(res => handleSuccess(req, res));
 });
 
-
-app.get('/exchanges', (res, req) => {  
+app.get('/exchanges', (res, req) => {
   handleSuccess(req, Object.keys(exchanges));
+});
+
+app.get('/markets', (res, req) => {
+  let data = {};
+  Object.keys(exchanges).map(exchange => (data[exchange] = {
+    markets: exchanges[exchange].markets
+  }));
+  handleSuccess(req, data);
 });
 
 // catch all
