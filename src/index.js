@@ -7,6 +7,8 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
+const promisesCache = {};
+
 app.listen(port, () => {
   console.log('App now running on port ', port);
 });
@@ -63,16 +65,23 @@ function getResult(codes) {
   });
 
   let promises = requestedExchanges.map(exchange => {
-    return new Promise((resolve, reject) => {
-      http.get(getUrl(exchanges[exchange].urlTpl, codes), data => {
+    let url = getUrl(exchanges[exchange].urlTpl, codes);
+    if (url in promisesCache) {
+      return promisesCache[url];
+    }
+    promisesCache[url] = new Promise((resolve, reject) => {
+      http.get(url, data => {
         let unified = unifyData(exchange, data);
         unified.timestamp = {
           request: +requestDate,
           response: +new Date()
         };
         resolve(unified);
+        // remove it after 1 sec
+        setTimeout(() => delete promisesCache[url]);
       });
     });
+    return promisesCache[url];
   });
   return new Promise((resolve, reject) => {
     Promise.all(promises).then(arr => {
