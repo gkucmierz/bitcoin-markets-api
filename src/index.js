@@ -69,14 +69,8 @@ function getResult(codes) {
     if (url in promisesCache) {
       return promisesCache[url];
     }
-    let args = {
-      requestConfig: {
-        timeout: 1000, //request timeout in milliseconds
-        noDelay: true, //Enable/disable the Nagle algorithm
-      }
-    };
     promisesCache[url] = new Promise((resolve, reject) => {
-      let req = http.get(url, args, data => {
+      let req = http.get(url, data => {
         let unified = unifyData(exchange, data);
         unified.timestamp = {
           request: +requestDate,
@@ -85,11 +79,6 @@ function getResult(codes) {
         resolve(unified);
         // remove it after 1 sec
         setTimeout(() => delete promisesCache[url]);
-      });
-      req.on('requestTimeout', req => {
-        console.log('request has expired');
-        resolve({});
-        req.abort();
       });
     });
     return promisesCache[url];
