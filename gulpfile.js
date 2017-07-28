@@ -20,5 +20,5 @@ gulp.task('default', () => {
 });
 
 process.on('exit', () => {
-    if (node) node.kill();
+  if (node) node.kill();
 });

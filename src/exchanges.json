@@ -33,6 +33,12 @@
       "prop": ["ask", "bid", null, null, "volume", "last", "low", "high"],
       "flags": ["FLOAT_CONVERT"],
       "markets": ["pln", "btc", "ltc"]
+    },
+    "beatcoin.pl": {
+      "urlTpl": "https://beatcoin.pl/public/graphs/%TO%%FROM%/ticker.json",
+      "prop": ["ask", "bid", null, null, "volume", "last", "low", "high"],
+      "flags": ["FLOAT_CONVERT"],
+      "markets": ["pln", "btc", "ltc"]
     }
   }
 }
